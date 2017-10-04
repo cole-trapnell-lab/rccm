@@ -13,10 +13,10 @@ gen_lagged_vec <-
 function(X, tau=1, E=3)
 {
     L <- length(X)
-    x <- array(dim=c(L-(E-1)*tau,E*tau))
-    tmap <- (1+(E-1)*tau):L
+    x <- array(dim=c(L-(E-1)*tau,E)) # only E columns (embeddin dimension)
+    tmap <- (1+(E-1)*tau):L # smallest time index to largest time index 
     for(i in tmap)
-        x[i-((E-1)*tau),] <- X[seq(i,(i-(E-1)*tau),-tau)]
+        x[i-((E-1)*tau),] <- X[seq(i,(i-(E-1)*tau),-tau)] # the time direction is reversed 
 
     return(list(x=x,tmap=tmap))
 }

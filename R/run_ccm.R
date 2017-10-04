@@ -2,9 +2,9 @@
 #' @description Uses a leave one out cross validation to calculate the predictability of X|Y and Y|X.
 #' @param X a vector containing series of observations
 #' @param Y a vector containing series of observations
-#' @param tau the lag a which to generate each lagging vector
+#' @param tau the lag which is used to generate each lagging vector
 #' @param E the number of lags to include
-#' @param randomWindow logical indicating how to select the window on which to compute shadow manifolds. If set to FALSE, will use the window beginning at (E-1)tau.
+#' @param randomWindow logical indicating how to select the window on which to compute shadow manifolds. If set to FALSE, will use the window beginning at (E-1)tau + 1.
 #' @param reps number of repeated random window samples on which to average the cross correlation
 #' @return the predicted value of y
 #' @keywords predict
@@ -24,7 +24,7 @@ function(X,Y,tau=1,E=2,randomWindow=FALSE,reps=1)
     cor_x <- numeric(Time)
     cor_y <- numeric(Time)
 
-    for(L in (5+(E-1)*tau):Time)
+    for(L in (5+(E-1)*tau):Time) # why 5 + (E - 1) * tau here? 
     {   
         n_shadow <- L-(E-1)*tau
         pred_x <- numeric(n_shadow)
